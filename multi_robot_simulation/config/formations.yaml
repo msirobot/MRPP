@@ -1,0 +1,9 @@
+formations:
+  line:
+    spacing: 0.5
+    orientation: "horizontal"
+  triangle:
+    base_width: 1.0
+    depth: 0.5
+  circle:
+    radius: 1.0
