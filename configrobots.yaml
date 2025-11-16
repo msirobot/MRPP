@@ -1,6 +1,0 @@
-robots:
-  - robot1
-  - robot2
-  - robot3
-formation_type: "line"  # line, triangle, circle
-control_frequency: 10
