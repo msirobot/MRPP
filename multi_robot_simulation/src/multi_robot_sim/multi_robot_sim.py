@@ -134,6 +134,9 @@ class MultiRobotSim:
         
         while not rospy.is_shutdown():
             with self.lock:
+                # 动态读取formation_type参数
+                self.formation_type = rospy.get_param('~formation_type', self.formation_type)
+                
                 # 更新运动规划
                 target_poses = self.motion_planner.update()
                 
