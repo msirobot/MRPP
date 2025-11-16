@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- 启动多机器人仿真节点 -->
+    <node name="multi_robot_sim" pkg="multi_robot_simulation" type="multi_robot_sim.py" output="screen">
+        <param name="config_path" value="$(find multi_robot_simulation)/config/robots.yaml"/>
+        <param name="formation_type" value="$(arg formation_type)"/>
+    </node>
+</launch>
