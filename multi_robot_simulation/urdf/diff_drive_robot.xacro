@@ -1,9 +1,14 @@
 <?xml version="1.0"?>
-<robot name="diff_drive_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
+  <!-- Define robot_name argument -->
+  <xacro:arg name="robot_name" default="robot"/>
+  <xacro:property name="robot_name" value="$(arg robot_name)"/>
+
+  <!-- Define the robot macro -->
   <xacro:macro name="diff_drive_robot" params="robot_name">
 
-    <link name="base_link">
+    <link name="${robot_name}/base_link">
       <visual>
         <geometry>
           <cylinder length="0.1" radius="0.2"/>
@@ -35,14 +40,24 @@
         <commandTopic>cmd_vel</commandTopic>
         <odometryTopic>odom</odometryTopic>
         <odometryFrame>odom</odometryFrame>
-        <robotBaseFrame>base_link</robotBaseFrame>
+        <robotBaseFrame>${robot_name}/base_link</robotBaseFrame>
+        <leftJoint>left_wheel_joint</leftJoint>
+        <rightJoint>right_wheel_joint</rightJoint>
+        <wheelSeparation>0.4</wheelSeparation>
+        <wheelDiameter>0.1</wheelDiameter>
+        <updateRate>10.0</updateRate>
+        <publishWheelTF>false</publishWheelTF>
+        <publishWheelJointState>false</publishWheelJointState>
       </plugin>
     </gazebo>
 
-    <gazebo reference="base_link">
+    <gazebo reference="${robot_name}/base_link">
       <material>Gazebo/Blue</material>
     </gazebo>
 
   </xacro:macro>
+
+  <!-- Instantiate the robot macro -->
+  <xacro:diff_drive_robot robot_name="${robot_name}"/>
 
 </robot>

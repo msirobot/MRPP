@@ -31,14 +31,18 @@ class MultiRobotSim:
         self.setup_robots()
         
         # 导入其他模块
-        from motion_planner import MotionPlanner
-        from formation_controller import FormationController
+        from multi_robot_sim.motion_planner import MotionPlanner
+        from multi_robot_sim.formation_controller import FormationController
+        from multi_robot_sim.waypoint_manager import WaypointManager
         
         # 运动规划器
         self.motion_planner = MotionPlanner(self.robot_poses)
         
         # 编队控制器
         self.formation_controller = FormationController(self.robot_poses)
+        
+        # 航点管理器
+        self.waypoint_manager = WaypointManager()
         
         # 线程锁
         self.lock = threading.Lock()

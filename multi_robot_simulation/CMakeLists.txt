@@ -11,17 +11,16 @@ find_package(catkin REQUIRED COMPONENTS
   gazebo_ros
 )
 
+catkin_python_setup()
+
 catkin_package()
 
 include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-install(PROGRAMS
-  src/multi_robot_simulation/multi_robot_sim.py
-  src/multi_robot_simulation/motion_planner.py
-  src/multi_robot_simulation/formation_controller.py
-  src/multi_robot_simulation/waypoint_manager.py
+catkin_install_python(PROGRAMS
+  src/multi_robot_sim/multi_robot_sim.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
