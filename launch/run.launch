@@ -1,0 +1,42 @@
+<launch> 
+    <arg name="turtle_sim_flag" default="false"/>
+    <group if="$(arg turtle_sim_flag)">
+        <include file="$(find turtle_sim)/launch/leader_run_sim.launch"/>   
+        <node name="fellow_run" pkg="turtle_sim" type="fellow_run.py" output="screen"/>    
+
+        <rosparam file="$(find gnss)/../../launch/config_sim.yaml" command="load"/>
+    </group>
+    <group unless="$(arg turtle_sim_flag)">
+        <rosparam file="$(find gnss)/../../launch/config.yaml" command="load"/>
+    </group>
+    <param name="turtle_sim_flag" value="$(arg turtle_sim_flag)"/> 
+    
+    <include file="$(find gnss)/launch/run.launch"/>
+    <!-- <include file="$(find radar)/launch/run.launch"/> -->
+    <!-- <include file="$(find lpms_ig1)/launch/lpmsig1.launch"/> -->
+
+    <include file="$(find obs_check)/launch/run.launch"/>
+    
+    <node pkg="data_comm" name="plus1" type="plus1" output="screen" respawn="true">
+        <param name="can_ch" value="0"/> 
+        <param name="max_speed_low" value="3"/>
+        <param name="max_speed_high" value="3"/>
+    </node>
+    <node pkg="data_comm" name="udp_comm" type="udp_comm" output="screen" respawn="true"/>
+
+    <node pkg="pathplan" type="globalpathplan" name="globalpathplan" output="screen">
+        <param name="local_range" value="15"/>
+    </node>
+
+    <node pkg="board_ctr" type="work" name="work" output="screen"/>
+    
+    <node pkg="pathtrack" type="pathtrack" name="pathtrack" output="screen"/>
+
+    <node pkg="pathtrack" type="carctr_decision" name="carctr_decision" output="screen"/>
+
+    <node pkg="multi_car" name="multi_car" type="multi_car" output="screen" respawn="true"/>
+        
+    <!-- <node pkg="plotjuggler" name="plotjuggler" type="plotjuggler"/> -->
+
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find turtle_sim)/show.rviz" output="screen"/>
+</launch> 

@@ -1,0 +1,31 @@
+leader_id: 0       # -1 无领导者
+utm_x_zero: 378377.08
+utm_y_zero: 4321251.45
+
+udp_comm:
+      local_port: 8081
+      remote_ip: 10.0.96.100
+      remote_port: 8083
+
+work:
+      slowdown_speed: 0.6
+      firstdrop_distance: 6
+      stop_error: 0.5
+      second_drop_enable: true
+
+pathtrack:
+      steering_property: -1
+      aim_range: 5
+
+carctr_decision:
+      work_enable: true
+      fellow_enable: true
+      obs_enable: false
+
+multi_car:
+      vp_adj_dis_max: 15
+      keep_distance: 10
+      stop_distance: 4
+      fellow_kp: 0.6
+      car_length: 8      
+
